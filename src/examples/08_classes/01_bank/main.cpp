@@ -2,7 +2,7 @@
 
 int main()
 {
-	Account account;
+	Account account(100);
 	
 	return 0;
 }
