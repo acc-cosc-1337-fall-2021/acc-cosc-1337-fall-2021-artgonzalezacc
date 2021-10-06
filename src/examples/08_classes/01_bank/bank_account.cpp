@@ -25,6 +25,11 @@ void Account::withdraw(int amount)
     }
 }
 
+void Account::get_begin_balance()
+{
+    balance = rand() % 10000 + 1;//generates number from 1 to 10000
+}
+
 //----------------FREE FUNCTIONS-------------------
 void display_account(Account account)
 {

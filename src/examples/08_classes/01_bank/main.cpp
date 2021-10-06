@@ -1,24 +1,51 @@
 #include "bank_account.h"
+#include "atm.h"
 #include<iostream>
+#include<time.h>
 
-using std::cout;
+using std::cout;  using std::cin;
 
 int main()
 {
-	Account account;
-	Account account2(500);
+	srand(time(NULL));//generate true random numbers
+	ATM atm;
+	auto amount = 0;
+	auto choice = 0;
+	
+	do
+	{
+		cout<<"\nGREAT ACC BANK\n";
+		cout<<"1-Get Balance \n";
+		cout<<"2-Deposit\n";
+		cout<<"3-Withdraw\n";
+		cout<<"4-Exit\n";
 
-	cout<<account.get_balance()<<"\n";
-	cout<<account2.get_balance()<<"\n";
+		cin>>choice;
 
-	account.deposit(50);
-	cout<<account.get_balance()<<"\n";
-
-	display_account(account2);
-	cout<<account2.get_balance()<<"\n";
-
-	Account account3 = get_account();
-	cout<<account3.get_balance()<<"\n";
+		switch(choice)
+		{
+		case mbalance:
+			atm.display_balance();
+			break;
+		case mdeposit:
+			cout<<"Enter deposit: \n";
+			cin>>amount;
+			atm.deposit(amount);
+			atm.display_balance();
+			cout<<"Deposit complete: \n";
+			break;
+		case mwithdraw:
+			cout<<"Enter withdraw: \n";
+			cin>>amount;
+			atm.withdraw(amount);
+			atm.display_balance();
+			cout<<"Withdraw complete\n";
+			break;
+		default:
+			cout<<"Invalid choice\n";
+		}
+	}
+	while(choice != 4);
 
 	return 0;
 }
