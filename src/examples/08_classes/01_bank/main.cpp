@@ -9,8 +9,20 @@ using std::cout;  using std::cin;  using std::vector;
 int main()
 {
 	srand(time(NULL));//generate true random numbers
+	Account act(500);
+	Account act1 = act;//TODO: copy constructor(behind the scenes)
+	Account act2(500);
 
-	ATM atm;
+	display_account(act);
+	friend_display_balance(act);
+	cout<<act.get_bank_balance()<<"\n";
+
+	BranchBank br_bank(10000);
+	//br_bank.update_balance(10500);
+
+	cout<<act.get_bank_balance()<<"\n";
+
+	/*ATM atm;
 	auto amount = 0;
 	auto choice = 0;
 	auto exit = 'n';
@@ -59,7 +71,7 @@ int main()
 		cin>>exit;
 
 	}
-	while(exit != 'y');
+	while(exit != 'y');*/
 
 	return 0;
 }
