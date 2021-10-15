@@ -26,8 +26,8 @@ private:
 class Account
 {
 public://access specifier
-    Account() : Account(0) {std::cout<<"executed\n";/*get_begin_balance();*/}//synthesized default constructor (function)
-    Account(int b) : balance(b){std::cout<<"executed\n"; bank_balance += balance;}//constructor
+    Account() {get_begin_balance();}
+    explicit Account(int b) : balance(b){std::cout<<"executed int b\n"; bank_balance += balance;}//constructor
     int get_balance()const;
     void deposit(int amount);
     void withdraw(int amount);    
@@ -35,6 +35,8 @@ public://access specifier
     friend void friend_display_balance(const Account& account);//friend FREE FUNCTION!!!!!!!
     friend void BranchBank::update_balance(int b);//FRIEND CLASS
     friend BranchBank::BranchBank(int b);
+    friend std::ostream& operator<<(std::ostream& out, const Account& a);
+    friend std::istream& operator>>(std::istream& in, Account& a);
 
 private:
     int balance;//iniitalize to zero

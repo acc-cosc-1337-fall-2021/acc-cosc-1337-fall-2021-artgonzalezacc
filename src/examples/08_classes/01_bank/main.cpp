@@ -1,26 +1,27 @@
 #include "bank_account.h"
+#include "checking_account.h"
 #include "atm.h"
 #include<iostream>
 #include<time.h>
 #include<vector>
+#include<string>
 
 using std::cout;  using std::cin;  using std::vector;
 
 int main()
 {
 	srand(time(NULL));//generate true random numbers
-	Account act(500);
-	Account act1 = act;//TODO: copy constructor(behind the scenes)
-	Account act2(500);
+	Account account;
+	/*cout<<account<<"\n";
+	cin>>account;
+	cout<<account.get_balance()<<"\n";*/
 
-	display_account(act);
-	friend_display_balance(act);
-	cout<<act.get_bank_balance()<<"\n";
+	Checking checking;
+	Checking checking1(50);
+	cout<<checking.get_balance()<<"\n";
+	checking.deposit(100);
+	cout<<checking.get_balance()<<"\n";
 
-	BranchBank br_bank(10000);
-	//br_bank.update_balance(10500);
-
-	cout<<act.get_bank_balance()<<"\n";
 
 	/*ATM atm;
 	auto amount = 0;
@@ -38,7 +39,8 @@ int main()
 			cout<<"1-Get Balance \n";
 			cout<<"2-Deposit\n";
 			cout<<"3-Withdraw\n";
-			cout<<"4-Exit\n";
+			cout<<"4-E
+			xit\n";
 
 			cin>>choice;
 
