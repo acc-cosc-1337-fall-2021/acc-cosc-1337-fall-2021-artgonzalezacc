@@ -7,7 +7,7 @@
 class Checking : public Account
 {
 public:
-    Checking() : {}
+    Checking(){}
     Checking(int b) : Account(b) {}
 };
 
