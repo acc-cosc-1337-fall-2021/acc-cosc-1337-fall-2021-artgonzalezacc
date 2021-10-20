@@ -1,5 +1,6 @@
 #include "bank_account.h"
 #include "checking_account.h"
+#include "savings_account.h"
 #include "atm.h"
 #include<iostream>
 #include<time.h>
@@ -11,17 +12,15 @@ using std::cout;  using std::cin;  using std::vector;
 int main()
 {
 	srand(time(NULL));//generate true random numbers
-	Account account;
-	/*cout<<account<<"\n";
-	cin>>account;
-	cout<<account.get_balance()<<"\n";*/
+	Account account(50);
+	cout<<account.get_balance()<<"\n";//uses get_balance from Account class
+	
+	Savings savings(50);
+	cout<<savings.get_balance()<<"\n";//uses get_balance from SAvings class
+	cout<<savings.get_special_balance();
 
-	Checking checking;
-	Checking checking1(50);
-	cout<<checking.get_balance()<<"\n";
-	checking.deposit(100);
-	cout<<checking.get_balance()<<"\n";
-
+	Account a = savings;//object slicing
+	//cout<<a.get_special_balance(); can't use this with a
 
 	/*ATM atm;
 	auto amount = 0;

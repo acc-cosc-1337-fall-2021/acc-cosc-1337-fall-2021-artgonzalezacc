@@ -27,7 +27,7 @@ class Account
 {
 public://access specifier
     Account() {get_begin_balance();}
-    explicit Account(int b) : balance(b){std::cout<<"executed int b\n"; bank_balance += balance;}//constructor
+    explicit Account(int b) : balance(b){ bank_balance += balance;}//constructor
     int get_balance()const;
     void deposit(int amount);
     void withdraw(int amount);    
@@ -38,8 +38,11 @@ public://access specifier
     friend std::ostream& operator<<(std::ostream& out, const Account& a);
     friend std::istream& operator>>(std::istream& in, Account& a);
 
-private:
+protected:
     int balance;//iniitalize to zero
+
+private:
+    
     void get_begin_balance();  
     static int bank_balance;
 };
