@@ -28,7 +28,7 @@ class Account
 public://access specifier
     Account() {get_begin_balance();}
     explicit Account(int b) : balance(b){ bank_balance += balance;}//constructor
-    int get_balance()const;
+    virtual int get_balance()const;
     void deposit(int amount);
     void withdraw(int amount);    
     static int get_bank_balance(){return bank_balance;}

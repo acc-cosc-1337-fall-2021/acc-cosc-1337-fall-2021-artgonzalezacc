@@ -3,21 +3,43 @@
 #include "savings_account.h"
 #include "atm.h"
 #include<iostream>
+#include<memory>
 #include<time.h>
 #include<vector>
 #include<string>
 
 using std::cout;  using std::cin;  using std::vector;
+using std::unique_ptr;  using std::make_unique;
 
 int main()
 {
+	Account ac(50);
+	cout<<ac.get_balance()<<"\n";//what will it display 50 or 55
+	Checking c(50);
+	cout<<c.get_balance()<<"\n";//what will it display 50 or 55
+	ac = c;
+	cout<<ac.get_balance()<<"\n";//what will it display 50 or 55
+	unique_ptr<Account> ac1 = make_unique<Checking>(500);
+	cout<<ac1->get_balance()<<"\n";
+
+
+	vector<unique_ptr<Account>> accounts; 
+	accounts.push_back(std::move(make_unique<Checking>(100)));//add checking to accounts
+	accounts.push_back(std::move(make_unique<Savings>(200)));//add savings to accounts
+
+	for(auto& account: accounts)
+	{
+		cout<<account->get_balance()<<"\n";
+	}
+
+
 	srand(time(NULL));//generate true random numbers
 	Account account(50);
-	cout<<account.get_balance()<<"\n";//uses get_balance from Account class
+	//cout<<account.get_balance()<<"\n";//uses get_balance from Account class
 	
 	Savings savings(50);
-	cout<<savings.get_balance()<<"\n";//uses get_balance from SAvings class
-	cout<<savings.get_special_balance();
+	//cout<<savings.get_balance()<<"\n";//uses get_balance from SAvings class
+	//cout<<savings.get_special_balance();
 
 	Account a = savings;//object slicing
 	//cout<<a.get_special_balance(); can't use this with a
