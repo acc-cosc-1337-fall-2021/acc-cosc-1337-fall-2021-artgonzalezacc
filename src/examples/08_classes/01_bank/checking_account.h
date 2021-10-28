@@ -9,7 +9,7 @@ class Checking : public Account
 public:
     Checking(){}
     Checking(int b) : Account(b) {}
-    int get_balance()const;
+    int get_balance()const override;
     
 };
 

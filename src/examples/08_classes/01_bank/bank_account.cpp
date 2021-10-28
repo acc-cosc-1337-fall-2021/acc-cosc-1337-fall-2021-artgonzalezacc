@@ -34,10 +34,10 @@ void Account::get_begin_balance()
 int Account::bank_balance = 0;//
 
 //----------------FREE FUNCTIONS-------------------
-void display_account(Account account)
+/*void display_account(Account account)
 {   //account.deposit(100);
     std::cout<<"Function display account: "<<account.get_balance()<<"\n";
-}
+}*/
 
 void friend_display_balance(const Account& account)
 {
@@ -62,11 +62,11 @@ std::istream& operator>>(std::istream& in, Account& a)
     return in;
 }
 
-Account get_account()
+/*Account get_account()
 {
     Account a;
     return a;
-}
+}*/
 
 //BRANCH BANK CLASS functions
 BranchBank::BranchBank(int b)

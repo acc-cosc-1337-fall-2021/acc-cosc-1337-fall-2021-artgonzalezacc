@@ -9,7 +9,7 @@ class Savings : public Account
 public:
     Savings(){}
     Savings(int b) : Account(b){/*empty code block*/}
-    int get_balance()const;
+    int get_balance()const override;
     int get_special_balance()const{return 1000;}
 
 };

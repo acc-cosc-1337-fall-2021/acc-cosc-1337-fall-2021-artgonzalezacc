@@ -5,11 +5,11 @@ using std::cout;
 
 ATM::ATM()
 {
-   	accounts.push_back(Account());
-	accounts.push_back(Account());
-	accounts.push_back(Account());
-    accounts.push_back(Account());
-    accounts.push_back(Account());
+   	accounts.push_back(std::move(make_unique<Checking>()));
+	accounts.push_back(std::move(make_unique<Savings>()));
+	accounts.push_back(std::move(make_unique<Savings>()));
+    accounts.push_back(std::move(make_unique<Checking>()));
+    accounts.push_back(std::move(make_unique<Savings>()));
 }
 
 void ATM::scan_card()
@@ -19,18 +19,18 @@ void ATM::scan_card()
 
 void ATM::display_balance()
 {
-    Account account = accounts[customer_index];
-    cout<<"Balance: "<<account.get_balance()<<"\n";
+    auto& account = accounts[customer_index];
+    cout<<"Balance: "<<account->get_balance()<<"\n";
 }
 
 void ATM::deposit(int amount)
 {
-    Account& account = accounts[customer_index];
-    account.deposit(amount);
+    auto& account = accounts[customer_index];
+    account->deposit(amount);
 }
 
 void ATM::withdraw(int amount)
 {
-    Account& account = accounts[customer_index];
-    account.withdraw(amount);
+    auto& account = accounts[customer_index];
+    account->withdraw(amount);
 }

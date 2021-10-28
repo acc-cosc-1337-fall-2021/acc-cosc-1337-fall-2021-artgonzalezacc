@@ -23,14 +23,14 @@ private:
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
-class Account
+class Account//abstract class-get_balance is a pure virtual function
 {
 public://access specifier
     Account() {get_begin_balance();}
     explicit Account(int b) : balance(b){ bank_balance += balance;}//constructor
-    virtual int get_balance()const;
-    void deposit(int amount);
-    void withdraw(int amount);    
+    virtual int get_balance()const = 0;//pure virtual function
+    virtual void deposit(int amount) final;
+    virtual void withdraw(int amount) final;    
     static int get_bank_balance(){return bank_balance;}
     friend void friend_display_balance(const Account& account);//friend FREE FUNCTION!!!!!!!
     friend void BranchBank::update_balance(int b);//FRIEND CLASS
@@ -50,5 +50,5 @@ private:
 #endif
 
 //free function
-void display_account(Account account);
-Account get_account();
+//void display_account(Account account);
+//Account get_account();
