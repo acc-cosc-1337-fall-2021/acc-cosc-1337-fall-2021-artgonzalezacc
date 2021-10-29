@@ -18,6 +18,8 @@ int main()
 {
 	unique_ptr<Shape> circle = make_unique<Circle>();		
 	//circle->draw();
+	Shape* s_ptr = circle.get();
+	s_ptr->draw();
 
 	unique_ptr<Shape> line = make_unique<Line>();
 	//line->draw();
@@ -31,6 +33,15 @@ int main()
 	{
 		shape->draw();
 	}
+
+	Circle c;
+	Shape* shape_ptr = &c;
+	shape_ptr->draw();
+
+	Line l;
+	shape_ptr = &l;
+	shape_ptr->draw();
+
 
 	return 0;
 }
