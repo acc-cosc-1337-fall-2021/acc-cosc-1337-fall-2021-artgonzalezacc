@@ -10,19 +10,29 @@ int main()
 
 	do
 	{
-		cout<<"Enter first player: ";
-		cin>>first_player;
+		while(!(first_player == "X" || first_player == "O"))
+		{
+			cout<<"Enter first player: ";
+			cin>>first_player;
+		}
+
 		game.start_game(first_player);
-		int position;
+		int position = 0;
 
 		while(game.game_over() == false)
 		{
-			cout<<"Enter a position from 1-9: ";
-			cin>>position;
+			while(position < 1 || position > 9)
+			{
+				cout<<"Enter a position from 1-9: ";
+				cin>>position;
+			}
+
 			game.mark_board(position);
 			game.display_board();
+			position = 0;
 		}
 
+		first_player = "Z";
 		cout<<"Do you want to quit? enter N";
 		cin>>choice;
 	}
