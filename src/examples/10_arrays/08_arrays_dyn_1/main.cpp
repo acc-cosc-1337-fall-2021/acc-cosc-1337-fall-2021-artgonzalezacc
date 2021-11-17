@@ -1,22 +1,16 @@
-#include<iostream>
+#include "arrays_dyn_1.h"
 
 int main()
 {
-	//stack/static array of objects
-	
-	//read data file or database
-	//initialize the balances
+	/*use_dynamic_memory(5);	
+	int* num_ptr = return_dynamic_memory(100);
+	std::cout<<*num_ptr;
+	delete num_ptr;
+	num_ptr = nullptr;*/
 
-	//iterate array with auto and display balance
-	
-	//stack/static array
-	//read data file or database
-	//initialize with an initializer list
-
-	//create static array of accounts initalize accounts w 5, 10, 50, and 100 
-	
-
-	//write code to display balances
+	std::cout<<"enter use dynamic array\n";
+	use_dynamic_array(10);
+	std::cout<<"after use dynamic array exits\n";
 
 	   
 	return 0;
