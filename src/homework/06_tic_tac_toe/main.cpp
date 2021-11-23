@@ -1,5 +1,6 @@
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_data.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
 
@@ -8,7 +9,8 @@ using std::unique_ptr; using std::make_unique;
 
 int main() 
 {
-	TicTacToeManager manager;
+	TicTacToeData data;
+	TicTacToeManager manager(data);
 	string first_player;
 	char choice;
 	unique_ptr<TicTacToe> game;//save memory region for a game
