@@ -33,3 +33,25 @@ TEST_CASE("Test my vector Size function with memberwise/stack/pointer privat var
 
 	REQUIRE(v[0] == 0);
 }
+
+TEST_CASE("Test overwriting an existing class with a copy")
+{
+	Vector v(3);
+	Vector v1(3);
+	v1 = v;
+	v[0] = 100;
+
+	REQUIRE(v[0] != v1[0]);
+
+	Vector* v2 = new Vector(3);
+	//delete v2;//must call delete to clear dynamic memory
+}
+
+TEST_CASE("Test copy vector w move no move assignment")
+{
+	Vector v(3);
+	v = get_vector();
+	v[0] = 100;
+
+	REQUIRE(v[0] == 100);
+}
