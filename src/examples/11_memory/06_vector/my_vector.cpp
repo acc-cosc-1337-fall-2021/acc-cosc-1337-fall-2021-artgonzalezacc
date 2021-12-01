@@ -3,7 +3,7 @@
 using std::cout;
 
 Vector::Vector(std::size_t s) 
-: size(s), elements{new int[s]()}/*Create dyanmic memory for elements of size s*/
+: size(s), space{RESERVE_DEFAULT_SIZE}, elements{new int[s]()}/*Create dyanmic memory for elements of size s*/
 {
     cout<<"Constructor(s)-Creating memory "<<elements<<"\n";//display address of elements
 }
@@ -52,19 +52,103 @@ Vector& Vector::operator=(const Vector& v)
 }
 
 /*
+1 Get size from v
+2 get v.elements memory
+3 set v.size to 0
+4 set v.elements to nullptr
+*/
+Vector::Vector(Vector&& v)
+: size{v.size}, elements{v.elements}
+{
+    cout<<"Move Constructor "<<elements<<"\n";
+    v.size = 0;
+    v.elements = nullptr;
+}
+
+/*
 1-Clear original dynamic memory
 2-point elements to v.elements
 3-get size from v
 4-point v.elements to nullptr
 5-set v.size to 0
+return a self reference using this
 */
-Vector::Vector(Vector&& v)
+Vector& Vector::operator=(Vector&& v)
 {
     delete elements;
     elements = v.elements;
+    cout<<"Move assignment "<<elements<<"\n";
+
     size = v.size;
     v.elements = nullptr;
     v.size = 0;
+   
+    *this;
+}
+
+/*
+1-Make sure new allocation is greater than space
+2-Create temp dynamic memory of size new allocation
+3-copy values from old memory array to temp array
+4-Delete the old array
+5-set elements to temp memory array
+6-set space = new allocation
+*/
+void Vector::Reserve(std::size_t new_allocation_size)
+{
+    if(new_allocation_size <= space)
+    {
+        return;
+    }
+
+    int* temp = new int[new_allocation_size];
+
+    for(std::size_t i=0; i < size; ++i)
+    {
+        temp[i] = elements[i];
+    }
+
+    delete[] elements;
+    elements = temp;
+    space = new_allocation_size;
+}
+
+/*
+1-Call reserve function with new allocation size
+2-initialize elements beyond size
+3-set size to new allocation
+*/
+void Vector::Resize(std::size_t new_allocation_size)
+{
+    Reserve(new_allocation_size);
+
+    for(std::size_t i = 0; i < new_allocation_size; ++i)
+    {
+        elements[i] = 0;
+    }
+
+    size = new_allocation_size;
+}
+
+/*
+1-if space 0 call Reserve w Reserve Default size
+2-else if size == space call Reserve w space * reserve default multiplier
+3-set value to current element at size
+4-inrement size
+*/
+void Vector::Pushback(int value)
+{
+    if(space == 0)
+    {
+        Reserve(RESERVE_DEFAULT_SIZE);
+    }
+    else if (space == size)
+    {
+        Reserve(space * RESERVE_DEFAULT_MULTIPLIER);
+    }
+
+    elements[size] = value;
+    size++;
 }
 
 Vector::~Vector()
@@ -75,8 +159,8 @@ Vector::~Vector()
 
 
 //free function
-Vector get_vector()
+Vector get_vector()//we are returning by value(copy) or reference?
 {
-    Vector v(3);
-    return v;
+    Vector v1(3);
+    return v1;
 }

@@ -36,8 +36,8 @@ TEST_CASE("Test my vector Size function with memberwise/stack/pointer privat var
 
 TEST_CASE("Test overwriting an existing class with a copy")
 {
-	Vector v(3);
-	Vector v1(3);
+	Vector v(3);//our constructor--Vector(std::size_t s)
+	Vector v1(3);//move assignment -Vector& operator=(const Vector& v);
 	v1 = v;
 	v[0] = 100;
 
@@ -47,11 +47,19 @@ TEST_CASE("Test overwriting an existing class with a copy")
 	//delete v2;//must call delete to clear dynamic memory
 }
 
+TEST_CASE("Test copy vector with std::move, move constructor")
+{
+	Vector v(3);//class constructor - Vector(std::size_t s);
+	Vector v1 = std::move(v);//move constructor - Vector(Vector&& v)
+	
+	
+}
+
 TEST_CASE("Test copy vector w move no move assignment")
 {
-	Vector v(3);
-	v = get_vector();
-	v[0] = 100;
+	Vector v(3);//class constructor - Vector(std::size_t s);
+	v = get_vector();//move assignment - Vector& operator=(Vector&& v);
+//	v[0] = 100;
 
-	REQUIRE(v[0] == 100);
+//	REQUIRE(v[0] == 100);
 }
