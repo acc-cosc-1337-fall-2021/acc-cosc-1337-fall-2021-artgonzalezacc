@@ -2,8 +2,12 @@
 
 using std::cout;
 
-Vector::Vector(std::size_t s) 
-: size(s), space{RESERVE_DEFAULT_SIZE}, elements{new int[s]()}/*Create dyanmic memory for elements of size s*/
+#ifndef MY_VECTOR_CPP
+#define MY_VECTOR_CPP
+
+template<class T>
+Vector<T>::Vector(std::size_t s) 
+: size(s), space{8}, elements{new T[s]()}/*Create dyanmic memory for elements of size s*/
 {
     cout<<"Constructor(s)-Creating memory "<<elements<<"\n";//display address of elements
 }
@@ -14,8 +18,9 @@ Copy constructor
 2 Initialize memory for v1
 3 Copy elements from v to v1
 */
-Vector::Vector(const Vector& v)
-: size{v.size}, elements{new int[v.size]}
+template<class T>
+Vector<T>::Vector(const Vector<T>& v)
+: size{v.size}, elements{new T[v.size]}
 {
     cout<<"Execute copy constructor "<<elements<<"\n";
 
@@ -33,9 +38,10 @@ Vector::Vector(const Vector& v)
 4-Point elements memory to temporary memory
 5-Return a reference to this vector
 */
-Vector& Vector::operator=(const Vector& v)
+template<class T>
+Vector<T>& Vector<T>::operator=(const Vector<T>& v)
 {
-    int* temp = new int[v.size]();
+    T* temp = new T[v.size]();
 
     for(std::size_t i=0; i < v.size; ++i)
     {
@@ -57,7 +63,8 @@ Vector& Vector::operator=(const Vector& v)
 3 set v.size to 0
 4 set v.elements to nullptr
 */
-Vector::Vector(Vector&& v)
+template<class T>
+Vector<T>::Vector(Vector<T>&& v)
 : size{v.size}, elements{v.elements}
 {
     cout<<"Move Constructor "<<elements<<"\n";
@@ -73,7 +80,8 @@ Vector::Vector(Vector&& v)
 5-set v.size to 0
 return a self reference using this
 */
-Vector& Vector::operator=(Vector&& v)
+template<class T>
+Vector<T>& Vector<T>::operator=(Vector<T>&& v)
 {
     delete elements;
     elements = v.elements;
@@ -83,7 +91,7 @@ Vector& Vector::operator=(Vector&& v)
     v.elements = nullptr;
     v.size = 0;
    
-    *this;
+    return *this;
 }
 
 /*
@@ -94,14 +102,15 @@ Vector& Vector::operator=(Vector&& v)
 5-set elements to temp memory array
 6-set space = new allocation
 */
-void Vector::Reserve(std::size_t new_allocation_size)
+template<class T>
+void Vector<T>::Reserve(std::size_t new_allocation_size)
 {
     if(new_allocation_size <= space)
     {
         return;
     }
 
-    int* temp = new int[new_allocation_size];
+    T* temp = new T[new_allocation_size];
 
     for(std::size_t i=0; i < size; ++i)
     {
@@ -118,7 +127,8 @@ void Vector::Reserve(std::size_t new_allocation_size)
 2-initialize elements beyond size
 3-set size to new allocation
 */
-void Vector::Resize(std::size_t new_allocation_size)
+template<class T>
+void Vector<T>::Resize(std::size_t new_allocation_size)
 {
     Reserve(new_allocation_size);
 
@@ -136,7 +146,8 @@ void Vector::Resize(std::size_t new_allocation_size)
 3-set value to current element at size
 4-inrement size
 */
-void Vector::Pushback(int value)
+template<class T>
+void Vector<T>::Pushback(T value)
 {
     if(space == 0)
     {
@@ -151,16 +162,19 @@ void Vector::Pushback(int value)
     size++;
 }
 
-Vector::~Vector()
+template<class T>
+Vector<T>::~Vector()
 {
     cout<<"Deleting dynamic memory "<<elements<<"\n";
     delete []elements;
 }
 
-
-//free function
-Vector get_vector()//we are returning by value(copy) or reference?
+/*free function
+Vector<int> get_vector()//we are returning by value(copy) or reference?
 {
-    Vector v1(3);
+    Vector<int> v1(3);
     return v1;
-}
+}*/
+
+#endif
+
